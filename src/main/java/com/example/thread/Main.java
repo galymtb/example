@@ -1,20 +1,30 @@
 package com.example.thread;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
+import com.example.thread.consumer.SimpleConsumer;
+import com.example.thread.dispatcher.SubscriptionDispatcher;
+import com.example.thread.producer.SimpleProducer;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        String filePath = "src/main/resources/SCH.log";
-        int poisonPill = Integer.MAX_VALUE;
-        BlockingQueue<String> queue = new LinkedBlockingDeque<>();
-        Thread producerThread = new Thread(new Producer(filePath, queue, poisonPill));
-        Thread consumerThread = new Thread(new Consumer(queue, poisonPill));
 
-        producerThread.start();
-        consumerThread.start();
+    // move to usage of dependency injection (+)
+    // execution service usage (+)
+    // java OOP & dispatchers (+)
+    // junit tests
 
-        producerThread.join();
-        consumerThread.join();
+    public static void main(String[] args) {
+        Injector injector = Guice.createInjector(new Module());
+
+        SubscriptionDispatcher dispatcher = injector.getInstance(SubscriptionDispatcher.class);
+        dispatcher.start();
+
+        injector.getInstance(SimpleConsumer.class);
+
+        SimpleProducer producer = injector.getInstance(SimpleProducer.class);
+        producer.start();
+
+        while(true){}
     }
+
 }
