@@ -21,7 +21,7 @@ public class ThreadedSubscriptionDispatcher extends BaseSubscriptionDispatcher {
 
     private final BlockingQueue<Message> _queue = new LinkedBlockingQueue<>();
     private final ConcurrentMap<Integer, CopyOnWriteArrayList<Consumer<Message>>> _subscribers = new ConcurrentHashMap<>();
-     private final ExecutorService _executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+    private final ExecutorService _executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     @Override
     public void schedule(Message message) {
