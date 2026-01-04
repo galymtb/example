@@ -21,12 +21,12 @@ public class ThreadedSubscriptionDispatcher extends BaseSubscriptionDispatcher {
 
     private final BlockingQueue<Message> _queue = new LinkedBlockingQueue<>();
     private final ConcurrentMap<Integer, CopyOnWriteArrayList<Consumer<Message>>> _subscribers = new ConcurrentHashMap<>();
-    // private final ExecutorService _executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    private final Thread _worker = new Thread(this::runLoop);
+     private final ExecutorService _executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     @Override
     public void schedule(Message message) {
         _queue.offer(message);
+        _executorService.submit(this::processMessage);
     }
 
     @Override
@@ -38,21 +38,19 @@ public class ThreadedSubscriptionDispatcher extends BaseSubscriptionDispatcher {
 
     @Override
     public void start() {
-        _worker.setDaemon(true);
-        _worker.start();
     }
 
-    private void runLoop() {
-        while (!Thread.currentThread().isInterrupted()) {
-            Message msg = _queue.poll();
-            if (msg == null) continue;
+    private void processMessage() {
+        try {
+            Message msg = _queue.take();
             List<Consumer<Message>> list = _subscribers.get(msg.getMsgType());
             if (list != null && !list.isEmpty()) {
                 for (Consumer<Message> consumer : list) {
-                    // _executor.execute(() -> consumer.accept(msg));
                     consumer.accept(msg);
                 }
             }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 

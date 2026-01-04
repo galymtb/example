@@ -3,6 +3,7 @@ package com.example.thread;
 import com.example.thread.consumer.Consumer;
 import com.example.thread.consumer.SimpleConsumer;
 import com.example.thread.dispatcher.MessageDispatcher;
+import com.example.thread.dispatcher.SimpleSubscriptionDispatcher;
 import com.example.thread.dispatcher.SubscriptionDispatcher;
 import com.example.thread.dispatcher.ThreadedSubscriptionDispatcher;
 import com.example.thread.producer.Producer;
