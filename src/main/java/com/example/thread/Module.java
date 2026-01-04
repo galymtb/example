@@ -17,8 +17,8 @@ public class Module extends AbstractModule {
     @Override
     protected void configure() {
         bind(MessageDispatcher.class).to(SubscriptionDispatcher.class);
-//        bind(SubscriptionDispatcher.class).to(SimpleSubscriptionDispatcher.class);
-        bind(SubscriptionDispatcher.class).to(ThreadedSubscriptionDispatcher.class);
+        bind(SubscriptionDispatcher.class).to(SimpleSubscriptionDispatcher.class);
+//        bind(SubscriptionDispatcher.class).to(ThreadedSubscriptionDispatcher.class);
         bind(Producer.class).to(SimpleProducer.class);
         bind(Consumer.class).to(SimpleConsumer.class);
     }
@@ -26,7 +26,7 @@ public class Module extends AbstractModule {
     @Provides
     @Named("filePath")
     String provideFilePath() {
-        return "src/main/resources/SCS.log";
+        return "src/main/resources/SCH.log";
     }
 
     @Provides

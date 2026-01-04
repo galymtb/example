@@ -1,14 +1,13 @@
 package com.example.thread.dispatcher;
 
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 
 import com.example.thread.message.Message;
+import com.example.thread.queue.SpscRingBuffer;
 import com.google.inject.Singleton;
 
 /**
@@ -17,7 +16,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class SimpleSubscriptionDispatcher extends BaseSubscriptionDispatcher {
 
-    private final BlockingQueue<Message> _queue = new LinkedBlockingQueue<>();
+    private final SpscRingBuffer<Message> _queue = new SpscRingBuffer<>(Integer.MAX_VALUE / 2);
     private final ConcurrentMap<Integer, CopyOnWriteArrayList<Consumer<Message>>> _subscribers = new ConcurrentHashMap<>();
     private final Thread _worker = new Thread(this::processMessage);
 
