@@ -1,4 +1,6 @@
 package com.example.thread.consumer;
 
-public interface Consumer {
+import com.example.thread.Bootable;
+
+public interface Consumer extends Bootable {
 }

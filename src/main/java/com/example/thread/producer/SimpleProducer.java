@@ -11,7 +11,7 @@ import com.example.thread.message.SomeMessage;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
-public class SimpleProducer implements Bootable, Producer {
+public class SimpleProducer implements Producer {
 
     private final String _fileName;
     private final int _poisonPill;

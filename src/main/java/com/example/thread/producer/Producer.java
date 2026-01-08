@@ -1,4 +1,6 @@
 package com.example.thread.producer;
 
-public interface Producer {
+import com.example.thread.Bootable;
+
+public interface Producer extends Bootable {
 }
