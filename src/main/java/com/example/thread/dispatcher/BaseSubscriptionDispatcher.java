@@ -16,10 +16,6 @@ public abstract class BaseSubscriptionDispatcher implements SubscriptionDispatch
     @Override
     public void schedule(Message message) {
         _queue.offer(message);
-        if (this instanceof SimpleSubscriptionDispatcher) {
-            processMessage();
-        }
-
     }
 
     @Override
@@ -36,9 +32,7 @@ public abstract class BaseSubscriptionDispatcher implements SubscriptionDispatch
             Message msg = _queue.poll();
             if (msg == null) continue;
             Consumer<Message> consumer = _subscribers.get(msg.getMsgType());
-            if (consumer != null) {
-                consumer.accept(msg);
-            }
+            consumer.accept(msg);
         }
     }
 

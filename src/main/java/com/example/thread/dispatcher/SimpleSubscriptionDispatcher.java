@@ -7,6 +7,7 @@ public class SimpleSubscriptionDispatcher extends BaseSubscriptionDispatcher {
 
     @Override
     public void start() {
+        this.processMessage();
     }
 
 }

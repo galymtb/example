@@ -16,13 +16,13 @@ public class Main {
     public static void main(String[] args) {
         Injector injector = Guice.createInjector(new Module());
 
-        SubscriptionDispatcher dispatcher = injector.getInstance(SubscriptionDispatcher.class);
-        dispatcher.start();
+        SimpleProducer producer = injector.getInstance(SimpleProducer.class);
+        producer.start();
 
         injector.getInstance(SimpleConsumer.class);
 
-        SimpleProducer producer = injector.getInstance(SimpleProducer.class);
-        producer.start();
+        SubscriptionDispatcher dispatcher = injector.getInstance(SubscriptionDispatcher.class);
+        dispatcher.start();
 
         while(true){}
     }
