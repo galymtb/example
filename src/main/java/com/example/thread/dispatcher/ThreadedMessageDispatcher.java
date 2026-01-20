@@ -1,9 +1,7 @@
 package com.example.thread.dispatcher;
 
-import com.google.inject.Singleton;
 
-@Singleton
-public class ThreadedSubscriptionDispatcher extends BaseSubscriptionDispatcher {
+public class ThreadedMessageDispatcher extends BaseMessageDispatcher {
 
     private final Thread _worker = new Thread(this::processMessage);
 

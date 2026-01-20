@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 
 import com.example.thread.message.Message;
 
-public abstract class BaseSubscriptionDispatcher implements SubscriptionDispatcher {
+public abstract class BaseMessageDispatcher implements MessageDispatcher {
 
     // TODO: implement common logic for subscription dispatchers
     protected final BlockingQueue<Message> _queue = new LinkedBlockingQueue<>();

@@ -1,20 +1,15 @@
 package com.example.thread.consumer;
 
-import com.example.thread.dispatcher.SubscriptionDispatcher;
+import com.example.thread.dispatcher.MessageDispatcher;
 import com.example.thread.message.MsgTypes;
 import com.example.thread.message.SomeMessage;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 public class SimpleConsumer implements Consumer {
 
     private final int _poisonPill;
 
-    @Inject
-    public SimpleConsumer(@Named("poisonPill") int poisonPill,
-                          SubscriptionDispatcher dispatcher) {
+    public SimpleConsumer(int poisonPill, MessageDispatcher dispatcher) {
         _poisonPill = poisonPill;
-
         dispatcher.subscribe(MsgTypes.SOME_MESSAGE_TYPE, this::handleMsg);
     }
 

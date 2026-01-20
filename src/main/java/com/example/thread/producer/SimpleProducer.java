@@ -4,12 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import com.example.thread.Bootable;
 import com.example.thread.dispatcher.MessageDispatcher;
 import com.example.thread.message.Message;
 import com.example.thread.message.SomeMessage;
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 
 public class SimpleProducer implements Producer {
 
@@ -17,10 +14,7 @@ public class SimpleProducer implements Producer {
     private final int _poisonPill;
     private final MessageDispatcher _dispatcher;
 
-    @Inject
-    public SimpleProducer(@Named("filePath") String fileName,
-                          @Named("poisonPill") int poisonPill,
-                          MessageDispatcher dispatcher) {
+    public SimpleProducer(String fileName, int poisonPill, MessageDispatcher dispatcher) {
         _fileName = fileName;
         _poisonPill = poisonPill;
         _dispatcher = dispatcher;

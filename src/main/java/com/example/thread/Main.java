@@ -1,30 +1,28 @@
 package com.example.thread;
 
-import com.example.thread.consumer.SimpleConsumer;
-import com.example.thread.dispatcher.SubscriptionDispatcher;
-import com.example.thread.producer.SimpleProducer;
+import com.example.thread.consumer.Consumer;
+import com.example.thread.dispatcher.MessageDispatcher;
+import com.example.thread.producer.Producer;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class Main {
 
-    // move to usage of dependency injection (+)
-    // execution service usage (+)
-    // java OOP & dispatchers (+)
-    // junit tests
+    private static final Injector _injector = Guice.createInjector(new Module());
 
     public static void main(String[] args) {
-        Injector injector = Guice.createInjector(new Module());
 
-        SimpleProducer producer = injector.getInstance(SimpleProducer.class);
+        Producer producer = _injector.getInstance(Producer.class);
         producer.start();
 
-        injector.getInstance(SimpleConsumer.class);
+        _injector.getInstance(Consumer.class);
 
-        SubscriptionDispatcher dispatcher = injector.getInstance(SubscriptionDispatcher.class);
+        MessageDispatcher dispatcher = _injector.getInstance(MessageDispatcher.class);
         dispatcher.start();
 
-        while(true){}
+        // TODO: find logic to stop main thread once worker threads finished
+        while(true);
+
     }
 
 }
