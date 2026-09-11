@@ -1,23 +1,24 @@
-package com.example.thread.producer;
+package com.example.producer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import com.example.thread.dispatcher.MessageDispatcher;
-import com.example.thread.message.Message;
-import com.example.thread.message.SomeMessage;
+import com.example.Bootable;
+import com.example.dispatcher.MessageDispatcher;
+import com.example.message.Message;
+import com.example.message.SomeMessage;
 
-public class SimpleProducer implements Producer {
+public class ProducerImpl implements Bootable {
 
+    private final MessageDispatcher _dispatcher;
     private final String _fileName;
     private final int _poisonPill;
-    private final MessageDispatcher _dispatcher;
 
-    public SimpleProducer(String fileName, int poisonPill, MessageDispatcher dispatcher) {
+    public ProducerImpl(MessageDispatcher dispatcher, String fileName, int poisonPill) {
+        _dispatcher = dispatcher;
         _fileName = fileName;
         _poisonPill = poisonPill;
-        _dispatcher = dispatcher;
     }
 
     @Override
@@ -29,10 +30,11 @@ public class SimpleProducer implements Producer {
                 Message msg = createMessage(line);
                 _dispatcher.schedule(msg);
             }
-            Message msg = createMessage(String.valueOf(_poisonPill));
-            _dispatcher.schedule(msg);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            Message msg = createMessage(String.valueOf(_poisonPill));
+            _dispatcher.schedule(msg);
         }
     }
 

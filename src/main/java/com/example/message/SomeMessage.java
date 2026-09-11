@@ -1,4 +1,4 @@
-package com.example.thread.message;
+package com.example.message;
 
 public class SomeMessage implements Message {
 
@@ -12,7 +12,7 @@ public class SomeMessage implements Message {
 
     @Override
     public int getMsgType() {
-        return MsgTypes.SOME_MESSAGE_TYPE;
+        return MsgTypes.MESSAGE_TYPE;
     }
 
 }

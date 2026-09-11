@@ -2,7 +2,7 @@ package com.example.thread;
 
 import org.junit.jupiter.api.Test;
 
-public class SimpleProducerTest {
+public class ConsumerImplTest {
 
     @Test
     public void test() {

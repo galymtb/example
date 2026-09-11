@@ -1,9 +1,9 @@
-package com.example.thread.dispatcher;
+package com.example.dispatcher;
 
 import java.util.function.Consumer;
 
-import com.example.thread.Bootable;
-import com.example.thread.message.Message;
+import com.example.Bootable;
+import com.example.message.Message;
 
 public interface MessageDispatcher extends Bootable {
 

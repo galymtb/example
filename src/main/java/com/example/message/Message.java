@@ -1,4 +1,4 @@
-package com.example.thread.message;
+package com.example.message;
 
 public interface Message {
 
